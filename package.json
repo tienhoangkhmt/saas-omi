@@ -9,6 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "dev:web": "yarn workspace web dev",
+    "start": "yarn workspace web dev",
     "dev:desktop": "yarn workspace desktop dev",
     "storybook": "yarn workspace @ui/storybook dev",
     "build:web": "yarn workspace web build",
@@ -67,6 +68,7 @@
   },
   "packageManager": "yarn@4.1.0",
   "dependencies": {
-    "react-icons": "^5.0.1"
+    "react-icons": "^5.0.1",
+    "react-infinite-scroll-component": "^6.1.0"
   }
 }

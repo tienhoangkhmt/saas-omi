@@ -12,11 +12,8 @@ import {
   StepsItem,
 } from '@saas-ui/react'
 import { useQuery } from '@tanstack/react-query'
-
 import { useRouter } from '@app/nextjs'
-
 import { getCurrentUser } from '@api/client'
-
 import {
   CreateOrganizationStep,
   InviteTeamMembersStep,

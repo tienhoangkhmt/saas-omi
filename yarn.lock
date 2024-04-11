@@ -20547,6 +20547,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-infinite-scroll-component@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "react-infinite-scroll-component@npm:6.1.0"
+  dependencies:
+    throttle-debounce: "npm:^2.1.0"
+  peerDependencies:
+    react: ">=16.0.0"
+  checksum: 10/78e27e46c38353c2cf3f6838255f48a0a1333155d6c551e78778366e6b162c86991cc38b1c756760ca1f9f276118f6611e5f8a942371c6780c67861dc8561173
+  languageName: node
+  linkType: hard
+
 "react-intl@npm:^6.6.4":
   version: 6.6.4
   resolution: "react-intl@npm:6.6.4"
@@ -21296,6 +21307,7 @@ __metadata:
     lint-staged: "npm:^13.3.0"
     prettier: "npm:^3.2.5"
     react-icons: "npm:^5.0.1"
+    react-infinite-scroll-component: "npm:^6.1.0"
     rimraf: "npm:^4.4.1"
     ts-node: "npm:^10.9.2"
     turbo: "npm:^1.13.0"
@@ -22431,6 +22443,13 @@ __metadata:
   dependencies:
     any-promise: "npm:^1.0.0"
   checksum: 10/486e1283a867440a904e36741ff1a177faa827cf94d69506f7e3ae4187b9afdf9ec368b3d8da225c192bfe2eb943f3f0080594156bf39f21b57cd1411e2e7f6d
+  languageName: node
+  linkType: hard
+
+"throttle-debounce@npm:^2.1.0":
+  version: 2.3.0
+  resolution: "throttle-debounce@npm:2.3.0"
+  checksum: 10/efed4a2d0528ece05d95cb7b4d1e11e501bfd55853746ab6eae02df38ea3220fc1be9746621db46b733edd61a12774684c137f5b40d71728bf0ea553d6a7e693
   languageName: node
   linkType: hard
 

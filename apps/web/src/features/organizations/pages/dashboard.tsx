@@ -1,28 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { lazy, useState } from 'react'
 
-import {
-  Card,
-  Grid,
-  GridItem,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from '@chakra-ui/react'
-import {
-  ErrorPage,
-  Page,
-  PageBody,
-  PageHeader,
-  Toolbar,
-  ToolbarButton,
-} from '@saas-ui-pro/react'
+import { Box, Text } from '@chakra-ui/react'
+import styled from '@emotion/styled'
+import { ErrorPage, Toolbar } from '@saas-ui-pro/react'
+import { SearchInput } from '@saas-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
 
+import CustomAvatar from '@app/features/common/components/Ui/Avatar'
+import GroupQuickInfo from '@app/features/common/components/Ui/GroupQuickInfo'
+import CustomSelect from '@app/features/common/components/Ui/Select'
+import CustomTabs, { tabItems } from '@app/features/common/components/Ui/Tabs'
+import ListContacts from '@app/features/common/components/list-contacts'
+import HeaderLayout from '@app/features/common/components/nav-layout'
 import { useWorkspace } from '@app/features/common/hooks/use-workspace'
 
 import { getDashboard } from '@api/client'
@@ -35,13 +26,56 @@ import {
   getRangeDiff,
   getRangeValue,
 } from '@ui/lib'
+import MessItems from '@app/features/common/components/Ui/GroupChatSocial/mess.item'
 
-import { IntroTour } from '../components/intro-tour'
-import { Activity } from '../components/metrics/activity'
-import { Metric } from '../components/metrics/metric'
-import { RevenueChart } from '../components/metrics/revenue-chart'
-import { SalesByCountry } from '../components/metrics/sales-by-country'
-import GroupQuickInfo from '@app/features/common/components/Ui/GroupQuickInfo'
+const WrapperBox = styled(Box)`
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    width: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+    background-color: #a8a7a7;
+  }
+`
+
+const tabs: tabItems[] = [
+  {
+    key: 1,
+    label: 'Activity',
+    propsComponent: {},
+    Component: lazy(
+      () => import('@app/features/common/components/Ui/TimeLine'),
+    ),
+  },
+  {
+    key: 2,
+    label: 'Info',
+    propsComponent: {},
+    Component: lazy(
+      () => import('@app/features/common/components/list-contacts'),
+    ),
+  },
+  {
+    key: 3,
+    label: 'Task',
+    propsComponent: {},
+    Component: lazy(
+      () => import('@app/features/common/components/Ui/TimeLine'),
+    ),
+  },
+  {
+    key: 4,
+    label: 'Note',
+    propsComponent: {},
+    Component: lazy(
+      () => import('@app/features/common/components/Ui/TimeLine'),
+    ),
+  },
+]
 
 export function DashboardPage() {
   const workspace = useWorkspace()
@@ -92,36 +126,7 @@ export function DashboardPage() {
     )
   }
 
-  const toolbar = (
-    <Toolbar className="overview-toolbar" variant="ghost">
-      <ToolbarButton
-        as="a"
-        href="https://twitter.com/intent/tweet?text=Check%20out%20%40saas_js,%20an%20advanced%20component%20library%20for%20SaaS%20products%20build%20with%20%40chakra_ui.%20https%3A//saas-ui.dev%20"
-        icon={<FaTwitter />}
-        label="Share on Twitter"
-      />
-      <ToolbarButton
-        as="a"
-        href="https://github.com/saas-js/saas-ui"
-        icon={<FaGithub />}
-        label="Star on Github"
-      />
-      <ToolbarButton
-        as="a"
-        href="https://discord.gg/4PmJGFcAjX"
-        icon={<FaDiscord />}
-        label="Join Discord"
-      />
-      <ToolbarButton
-        as="a"
-        href="https://saas-ui.lemonsqueezy.com/checkout/buy/5c76854f-738a-46b8-b32d-932a97d477f5"
-        label="Buy Pro"
-        colorScheme="primary"
-        variant="solid"
-        className="pre-order"
-      />
-    </Toolbar>
-  )
+  const toolbar = <HeaderLayout />
 
   const footer = (
     <Toolbar justifyContent="flex-start" variant="secondary" size="xs">
@@ -150,82 +155,80 @@ export function DashboardPage() {
     </Toolbar>
   )
 
+  const border = '1px solid #EAEAEA'
+
   return (
-    <Page isLoading={isLoading}>
-      <PageHeader
-        title={organization?.name}
-        toolbar={toolbar}
-        footer={footer}
-      />
-   
-      <PageBody
+    <WrapperBox
+      className="scroll-bar-global"
+      justifyContent="space-between"
+      overflowY="hidden"
+      display="flex"
+      h="100%"
+    >
+      {/* <PageBody
         contentWidth="container.2xl"
         bg="page-body-bg-subtle"
         py={{ base: 4, xl: 8 }}
         px={{ base: 4, xl: 8 }}
-      >   
-        <GroupQuickInfo isText />
-        <IntroTour />
-        <Grid
-          templateColumns={['repeat(1, 1fr)', null, null, 'repeat(2, 1fr)']}
-          gridAutoColumns="fr1"
-          width="100%"
-          gap={{ base: 4, xl: 8 }}
-          pb="8"
+      >    */}
+      <Box flex="25%">
+        <Box borderBottom={border} h={16}>
+          <Text>Conversation</Text>
+        </Box>
+        <SearchInput placeholder="Search" />
+        <Box>
+          <ListContacts />
+        </Box>
+      </Box>
+
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        flexDirection="column"
+        borderRight={border}
+        borderLeft={border}
+        flex="45%"
+      >
+        <Box display="flex" borderBottom={border} h={16}>
+          <GroupQuickInfo userName="Hoang" />
+          <CustomSelect name="s" />
+        </Box>
+        <WrapperBox
+          padding={2}
+          // flex="1 1 auto"
+          overflowY="auto"
+          overflowX="hidden"
+          h="100%"
         >
-          <GridItem colSpan={{ base: 1, lg: 2 }} maxW="100vw">
-            <Card>
-              <Tabs variant="unstyled" tabIndex={0}>
-                <TabList
-                  overflow="hidden"
-                  borderTopRadius="md"
-                  display="flex"
-                  flexWrap="wrap"
-                >
-                  {data?.charts.map((metric) => (
-                    <Tab
-                      key={metric.id}
-                      id={metric.id}
-                      alignItems="stretch"
-                      justifyContent="stretch"
-                      flex={{ base: '0 0 50%', lg: '1 0 auto' }}
-                      height="auto"
-                      textAlign="left"
-                      borderBottomWidth="1px"
-                      borderRightWidth="1px"
-                      _hover={{
-                        bg: 'whiteAlpha.100',
-                        _dark: {
-                          bg: 'whiteAlpha.100',
-                        },
-                      }}
-                      _selected={{
-                        borderBottomWidth: '2px',
-                        borderBottomColor: 'primary.500',
-                        display: 'flex',
-                      }}
-                      _last={{
-                        borderRightWidth: '0',
-                      }}
-                    >
-                      <Metric {...metric} />
-                    </Tab>
-                  ))}
-                </TabList>
-                <TabPanels>
-                  {data?.charts.map((metric) => (
-                    <TabPanel key={metric.id} pt="8">
-                      <RevenueChart data={metric.data} />
-                    </TabPanel>
-                  ))}
-                </TabPanels>
-              </Tabs>
-            </Card>
-          </GridItem>
-          <GridItem as={SalesByCountry} data={data?.sales} />
-          <GridItem as={Activity} data={data?.activity} />
-        </Grid>
-      </PageBody>
-    </Page>
+          <MessItems isRight />
+          <MessItems />
+          <MessItems isRight />
+          <MessItems />
+          <MessItems isRight />
+          <MessItems />
+        </WrapperBox>
+        <Box bottom={0} bg="green.500" w="100%" borderBottom={border} h={16}>
+          <CustomTabs tabs={tabs} />
+        </Box>
+      </Box>
+
+      <Box flex="30%">
+        <Box h={16} borderBottom={border}>
+          <Text>Contact</Text>
+        </Box>
+        <Box>
+          <Box textAlign="center">
+            <CustomAvatar isBadge={false} />
+            <Box display="flex" justifyContent="center">
+              <Text>goi</Text>
+              <Text>nhan tin</Text>
+              <Text>tele</Text>
+              <Text>gmail</Text>
+            </Box>
+          </Box>
+          <CustomTabs tabs={tabs} />
+        </Box>
+      </Box>
+    </WrapperBox>
   )
 }

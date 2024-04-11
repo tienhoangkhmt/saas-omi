@@ -1,21 +1,32 @@
-import { Avatar, AvatarBadge, AvatarBadgeProps, AvatarProps } from '@chakra-ui/react'
-import CustomIcons from '../Icons';
-import { IconBaseProps } from 'react-icons';
+import {
+  Avatar,
+  AvatarBadge,
+  AvatarBadgeProps,
+  AvatarProps,
+} from '@chakra-ui/react'
+import { IconBaseProps } from 'react-icons'
+
+import CustomIcons from '../Icons'
 
 interface ICustomAvatarProps extends AvatarProps {
-  propsIcons?: IconBaseProps,
+  propsIcons?: IconBaseProps
   propsBadge?: AvatarBadgeProps
+  isBadge?: boolean
 }
 
 const CustomAvatar: React.FC<ICustomAvatarProps> = (props) => {
-  
+
+  const { isBadge = true } = props;
+
   return (
     <Avatar {...props}>
-       <AvatarBadge {...props.propsBadge} boxSize='1.25em'>
+      {isBadge && (
+        <AvatarBadge {...props.propsBadge} boxSize="32px">
           <CustomIcons {...props.propsIcons} />
-       </AvatarBadge>
+        </AvatarBadge>
+      )}
     </Avatar>
   )
 }
 
-export default CustomAvatar;
+export default CustomAvatar

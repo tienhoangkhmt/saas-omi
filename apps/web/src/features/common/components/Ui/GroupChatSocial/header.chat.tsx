@@ -15,7 +15,7 @@ const HeaderChat:React.FC<THeaderChat> = ({ listSocial = [] }) => {
   return (
     <Box>
       <Box>
-        <GroupQuickInfo />
+        <GroupQuickInfo userName="Hoang" />
       </Box>
       <Box>
           {
